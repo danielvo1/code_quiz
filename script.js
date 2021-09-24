@@ -4,17 +4,22 @@ var start_button = document.querySelector("#start");
 var question = document.querySelector("#question");
 var timer = document.querySelector("#timer");
 var pressed = true;  
-var total_time = 63;
+var total_time = 90;
 var sec;
 var min;
 
-// the total amount of time for the test
+// this is a timer that counts down from 90 
 function countDown(){
+    start_button.remove();
     var clock = setInterval(function(){
+        min  = Math.floor((total_time)/60);
         
-        min  = Math.floor(parseInt(total_time)/60);
-        sec = Math.abs(parseInt(total_time) - 60);
-    
+        if ((total_time - 60) < 0) {
+            sec = parseInt(total_time - 60) + 60;
+        } else {
+        sec = total_time - 60;
+        }
+
         if (min < 10) {
             min = '0' + min; 
         }
@@ -23,20 +28,18 @@ function countDown(){
             sec = '0' + sec;
         }
 
-        if (total_time > 0) {
-            // console.log(min);
-            // console.log(sec);
+        if (total_time >= 0) {
             timer.innerHTML = min + ':' + sec;
             total_time -= 1;
-            console.log(total_time);
         }
         if (sec < 0) {
             clearInterval(clock);
+            document.getElementById('start').disabled = true;
         }
-    }, 1000);
+    }, 1000)
+    ;
 }
 ;
    
 start_button.addEventListener('click', countDown);
-
 
