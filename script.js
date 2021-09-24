@@ -7,12 +7,20 @@ var total_time = 90;
 // the total amount of time for the test
 function countDown(){
     setInterval(function(){ 
-        const hour =  Math.floor(total_time/60);
-        console.log(hour);
-        const min = total_time % 60;
+        var min =  Math.floor(total_time/60);
+        var sec = total_time - 60;
         if (total_time > 0) {
-            timer.textContent = hour + ":" + min; 
+            if (min < 10) {
+            min = "0" + min; 
+            };
+            if (sec < 10) {
+            sec = "0" + sec;
+            };
+            timer.textContent = min + ':' + sec;
             total_time -= 1;
+        }
+        if (total_time == 0) {
+            timer.textContent = "0:00"
         }
     }, 1000);
 };
