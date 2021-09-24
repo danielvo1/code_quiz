@@ -3,28 +3,40 @@
 var start_button = document.querySelector("#start");
 var question = document.querySelector("#question");
 var timer = document.querySelector("#timer");
-var total_time = 90;
+var pressed = true;  
+var total_time = 63;
+var sec;
+var min;
+
 // the total amount of time for the test
 function countDown(){
-    setInterval(function(){ 
-        var min =  Math.floor(total_time/60);
-        var sec = total_time - 60;
-        if (total_time > 0) {
-            if (min < 10) {
-            min = "0" + min; 
-            };
-            if (sec < 10) {
-            sec = "0" + sec;
-            };
-            timer.textContent = min + ':' + sec;
-            total_time -= 1;
+    var clock = setInterval(function(){
+        
+        min  = Math.floor(parseInt(total_time)/60);
+        sec = Math.abs(parseInt(total_time) - 60);
+    
+        if (min < 10) {
+            min = '0' + min; 
         }
-        if (total_time == 0) {
-            timer.textContent = "0:00"
+    
+        if (sec < 10) {
+            sec = '0' + sec;
+        }
+
+        if (total_time > 0) {
+            // console.log(min);
+            // console.log(sec);
+            timer.innerHTML = min + ':' + sec;
+            total_time -= 1;
+            console.log(total_time);
+        }
+        if (sec < 0) {
+            clearInterval(clock);
         }
     }, 1000);
-};
-
+}
+;
+   
 start_button.addEventListener('click', countDown);
 
 
