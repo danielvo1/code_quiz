@@ -3,21 +3,36 @@
 var start_button = document.querySelector("#start");
 var question = document.querySelector("#question");
 var timer = document.querySelector("#timer");
-var pressed = true;  
-var total_time = 90;
+var total_time = 5;
 var sec;
 var min;
 
-// this is a timer that counts down from 90 
+// function starts the quiz
+function startQuiz() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// this is a timer that counts down from total time and formats it like "00:00" 
 function countDown(){
     start_button.remove();
     var clock = setInterval(function(){
         min  = Math.floor((total_time)/60);
         
         if ((total_time - 60) < 0) {
-            sec = parseInt(total_time - 60) + 60;
+            sec = total_time;
         } else {
-        sec = total_time - 60;
+            sec = total_time - 60;
         }
 
         if (min < 10) {
@@ -28,18 +43,26 @@ function countDown(){
             sec = '0' + sec;
         }
 
-        if (total_time >= 0) {
-            timer.innerHTML = min + ':' + sec;
+        if (total_time > 0) {
             total_time -= 1;
-        }
-        if (sec < 0) {
+            console.log(total_time);
+            timer.innerHTML = min + ':' + sec;
+        
+        } else if (total_time == 0) {
             clearInterval(clock);
-            document.getElementById('start').disabled = true;
+            timer.innerHTML = "00:00"
         }
     }, 1000)
     ;
 }
 ;
+
+
+
+
+
+
+
    
 start_button.addEventListener('click', countDown);
 
