@@ -4,6 +4,8 @@ var start_button = document.querySelector("#start");
 var question = document.querySelector("#question");
 var timer = document.querySelector("#timer");
 var total_time = 90;
+var counter = 0;
+var nextBtn = document.createElement('button');
 var sec;
 var min;
 
@@ -45,18 +47,24 @@ console.log(selections);
 function startQuiz() {
     countDown();
     createBtn();
-
+    createQuiz();
 }
 
 
 function createBtn () {
-    var button = document.createElement('button');
-    button.innerHTML = "Next";
-    document.body.appendChild(button);
+    nextBtn.setAttribute("id", "nextBtn");
+    nextBtn.innerHTML = "Next";
+    document.body.appendChild(nextBtn);
+    console.log(nextBtn);
 }
 
-function quiz(){
-
+function createQuiz(){
+    if (counter < questions.length) {
+        var q1 = document.createElement('li');
+        var q2 = document.createElement('li');
+        var q3 = document.createElement('li');
+        var q4 = document.createElement('li');
+    }
 }
 
 
@@ -95,7 +103,8 @@ function countDown(){
 }
 ;
 
-
-
 start_button.addEventListener('click', startQuiz);
-
+nextBtn.addEventListener('click', function(){
+    alert('hello')
+});
+console.log(nextBtn);
