@@ -1,22 +1,60 @@
 
 // intializing global variables to be used in the functions
 var start_button = document.querySelector("#start");
-var question = document.querySelector("#question");
 var timer = document.querySelector("#timer");
+var nextBtn = document.createElement('button');
+
+
+var ques = document.createElement('form');
+ques.setAttribute('id', 'question');
+
+//creates 'a' choice
+var a = document.createElement('input');
+a.setAttribute('type', 'radio');
+a.setAttribute('id', 'a');
+a.setAttribute('name', 'select');
+var a_content = document.createElement('label');
+a_content.setAttribute('for', 'a');
+
+//creates 'b' choice
+var b = document.createElement('input');
+b.setAttribute('type', 'radio');
+b.setAttribute('id', 'b');
+b.setAttribute('name', 'select');
+var b_content = document.createElement('label');
+b_content.setAttribute('for', 'b')
+
+//creates 'c' choice
+var c = document.createElement('input');
+c.setAttribute('type', 'radio');
+c.setAttribute('id', 'c');
+c.setAttribute('name', 'select');
+var c_content = document.createElement('label');
+c_content.setAttribute('for', 'c');
+
+//creates 'd' choice
+var d = document.createElement('input');
+d.setAttribute('type', 'radio');
+d.setAttribute('id', 'd');
+d.setAttribute('name', 'select')
+var d_content = document.createElement('label');
+d_content.setAttribute('for', 'd');
+
+//variables used in different functions
+var user_answer = '';
 var total_time = 90;
 var counter = 0;
-var nextBtn = document.createElement('button');
+var cur_selection;
 var sec;
 var min;
 
-//array of questions and corresponding selections 
+//array of questions 
 var questions = [
     "What does HTML stand for?", 
     "What is CSS mainly used for?",
     "What is my dog's name ?" 
 ];
 
-console.log(questions);
 //answer key
 var answerKey = [
     "Hypertext Markup Language" , 
@@ -24,6 +62,7 @@ var answerKey = [
     "Gigi"
 ];
 
+//array of selection
 var selections = [
     {a: "Hypertext Markup Language" ,
     b: "Hyperactive Markup Language" ,
@@ -41,7 +80,6 @@ var selections = [
     d: "Billy" }
 ]
 
-console.log(selections);
 
 // function starts the quiz
 function startQuiz() {
@@ -50,7 +88,7 @@ function startQuiz() {
     createQuiz();
 }
 
-
+//creates the button that allows test taker to submit their answer
 function createBtn () {
     nextBtn.setAttribute("id", "nextBtn");
     nextBtn.innerHTML = "Next";
@@ -58,15 +96,55 @@ function createBtn () {
     console.log(nextBtn);
 }
 
+
+//puts the questions and answers on screen
 function createQuiz(){
     if (counter < questions.length) {
-        var q1 = document.createElement('li');
-        var q2 = document.createElement('li');
-        var q3 = document.createElement('li');
-        var q4 = document.createElement('li');
+
+        // this is assaigning the choices with values
+        a_content.innerHTML = selections[counter].a;
+        b_content.innerHTML = selections[counter].b;
+        c_content.innerHTML = selections[counter].c;
+        d_content.innerHTML = selections[counter].d;
+
+        cur_selection = selections[counter];
+        ques.textContent = questions[counter];
+
+        document.querySelector('#content').appendChild(ques);
+        document.querySelector('#question').appendChild(a);
+        document.querySelector('#question').appendChild(a_content);
+        document.querySelector('#question').appendChild(b);
+        document.querySelector('#question').appendChild(b_content);
+        document.querySelector('#question').appendChild(c);
+        document.querySelector('#question').appendChild(c_content);
+        document.querySelector('#question').appendChild(d);
+        document.querySelector('#question').appendChild(d_content);
+        counter++;
     }
 }
 
+//switches to next question
+function next() {
+    if (a.checked) {
+        user_answer = a_content.textContent;
+    } else if (b.checked) {
+        user_answer = 'b';
+    } else if (c.checked) {
+        user_answer = 'c';
+    } else if (d.checked) {
+        user_answer = 'd';
+    }
+
+    if(answerKey.includes(user_answer)) {
+        alert('correct');
+    }
+    if(!answerKey.includes(user_answer)) {
+        alert('incorrect, you lost 10 seconds');
+        total_time -= 10;
+    }
+
+    console.log(user_answer);
+}
 
 
 
@@ -104,7 +182,4 @@ function countDown(){
 ;
 
 start_button.addEventListener('click', startQuiz);
-nextBtn.addEventListener('click', function(){
-    alert('hello')
-});
-console.log(nextBtn);
+nextBtn.addEventListener('click', next);
