@@ -42,11 +42,13 @@ d_content.setAttribute('for', 'd');
 
 //variables used in different functions
 var user_answer = '';
-var total_time = 90;
+var total_time = 60;
 var counter = 0;
 var cur_selection;
 var sec;
 var min;
+
+
 
 //array of questions 
 var questions = [
@@ -107,7 +109,6 @@ function createQuiz(){
         c_content.innerHTML = selections[counter].c;
         d_content.innerHTML = selections[counter].d;
 
-        cur_selection = selections[counter];
         ques.textContent = questions[counter];
 
         document.querySelector('#content').appendChild(ques);
@@ -128,11 +129,11 @@ function next() {
     if (a.checked) {
         user_answer = a_content.textContent;
     } else if (b.checked) {
-        user_answer = 'b';
+        user_answer = b_content.textContent;
     } else if (c.checked) {
-        user_answer = 'c';
+        user_answer = c_content.textContent;
     } else if (d.checked) {
-        user_answer = 'd';
+        user_answer = d_content.textContent;
     }
 
     if(answerKey.includes(user_answer)) {
@@ -142,10 +143,38 @@ function next() {
         alert('incorrect, you lost 10 seconds');
         total_time -= 10;
     }
+    ques.innerHTML = questions[counter];
+
+    a_content.innerHTML = selections[counter].a;
+    b_content.innerHTML = selections[counter].b;
+    c_content.innerHTML = selections[counter].c;
+    d_content.innerHTML = selections[counter].d;
+
+    document.querySelector('#content').appendChild(ques);
+    document.querySelector('#question').appendChild(a);
+    document.querySelector('#question').appendChild(a_content);
+    document.querySelector('#question').appendChild(b);
+    document.querySelector('#question').appendChild(b_content);
+    document.querySelector('#question').appendChild(c);
+    document.querySelector('#question').appendChild(c_content);
+    document.querySelector('#question').appendChild(d);
+    document.querySelector('#question').appendChild(d_content);
+    
+
+
+    counter++;
+
+    a.checked = false;
+    b.checked = false;
+    c.checked = false;
+    d.checked = false;
 
     console.log(user_answer);
 }
 
+funtion inputScore (){
+    
+}
 
 
 // this is a timer that counts down from total time and formats it like "00:00" 
