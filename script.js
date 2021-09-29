@@ -13,17 +13,12 @@ var instructions = document.querySelector('#instructions');
 var ques = document.createElement('form');
 ques.setAttribute('id', 'question');
 
-//create scoreboard 
-var highscore = document.createElement('h2');
-highscore.setAttribute('id', 'scoreboard');
-highscore.textContent = 'HighScores!';
-board = document.querySelector('#scoreboard');
-
 //creates 'a' choice
 var a = document.createElement('input');
 a.setAttribute('type', 'radio');
 a.setAttribute('id', 'a');
 a.setAttribute('name', 'select');
+a.style.background = 'white';
 var a_content = document.createElement('label');
 a_content.setAttribute('for', 'a');
 
@@ -146,18 +141,18 @@ function next() {
 
     //alerts if its correct or incorrect and takes away 10 second for incorrect answer
     if(answerKey.includes(user_answer)) {
-        alert('correct');
+        // alert('correct');
         score ++;
     }
     if(!answerKey.includes(user_answer)) {
-        alert('incorrect, you lost 10 seconds');
+        // alert('incorrect, you lost 10 seconds');
         total_time -= 10;
     }
 
 
     //checks if we are at the end of the game; return stop() if it is
     ques.innerHTML = questions[counter];
-    if (counter == questions.length){
+    if (counter == questions.length || total_time == 0){
         total_time = 0;
         nextBtn.remove();
         return stop();
@@ -217,16 +212,21 @@ function stop(){
     user_list.push(saved_values);
     console.log(user_list);
     localStorage.setItem('user', JSON.stringify(user_list));
+    scoreBoard();
     }
-
-
-
 }
 
-function scoreboard() {
-    console.log(user_list);
+function scoreBoard() {
+    var scorelist = document.createElement('ol');
+    scorelist.setAttribute('id', 'scoreboard');
+    scorelist.innerHTML = 'Highscores'
+    document.body.appendChild(scorelist);
+    for (let i = 0; i < user_list.length; i++) {
+        var users_score = document.createElement('li');
+        users_score.innerHTML = user_list[i].name + ': ' + user_list[i].score;
+        document.querySelector('#scoreboard').appendChild(users_score);
+    }
 }
-
 
 
 // this is a timer that counts down from total time and formats it like "00:00" 
@@ -260,6 +260,7 @@ function countDown(){
     ;
 }
 ;
+
 
 start_button.addEventListener('click', startQuiz);
 nextBtn.addEventListener('click', next);

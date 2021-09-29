@@ -1,0 +1,50 @@
+*{
+	background-color: lightgreen;
+}
+
+h1 {
+	text-align: center;
+	padding-top: 20px;
+	font-size: 45px;
+	padding-bottom: 10px;
+}
+
+p {
+	text-align: center;
+	font-size: 25px;
+}
+
+#title {
+	display: block;
+	align-content: center;
+}
+
+
+#instructions {
+  	border:1px solid #000;
+  	align-self: center;
+}
+
+#clock {
+	position: all;
+	margin: 0;
+	padding:  0;
+}
+
+#content {
+	text-align: center;
+	padding: 20px;
+}
+
+#start {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
