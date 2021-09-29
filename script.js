@@ -211,8 +211,8 @@ function stop(){
     } else {
     alert("Thank you " + user);
     const saved_values = {
-        name: user,
-        score: score
+        score: score,
+        name: user
     };
     user_list.push(saved_values);
     console.log(user_list);
@@ -223,9 +223,9 @@ function stop(){
 
 }
 
-// function scoreboard() {
-//     localStorage.
-// }
+function scoreboard() {
+    console.log(user_list);
+}
 
 
 
