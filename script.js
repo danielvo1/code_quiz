@@ -9,10 +9,15 @@ var br2 = document.createElement('br');
 var br3 = document.createElement('br');
 var instructions = document.querySelector('#instructions');
 
+//creates the form for questions and selections
 var ques = document.createElement('form');
 ques.setAttribute('id', 'question');
-var scoreboard = document.createElement('form');
-scoreboard.setAttribute('id' , 'scoreboard');
+
+//create scoreboard 
+var highscore = document.createElement('h2');
+highscore.setAttribute('id', 'scoreboard');
+highscore.textContent = 'HighScores!';
+board = document.querySelector('#scoreboard');
 
 //creates 'a' choice
 var a = document.createElement('input');
@@ -48,12 +53,12 @@ d_content.setAttribute('for', 'd');
 
 //variables used in different functions
 var user_answer = '';
+var user_list = JSON.parse(localStorage.getItem('user')) || [];
 var total_time = 60;
 var counter = 0;
-var cur_selection;
 var sec;
 var min;
-var correct_counter = 0;
+var score = 0;
 
 
 
@@ -61,14 +66,16 @@ var correct_counter = 0;
 var questions = [
     "What does HTML stand for?", 
     "What is CSS mainly used for?",
-    "What is my dog's name ?" 
+    "What is my dog's name?" ,
+    "which one of these is NOT a coding language?"
 ];
 
 //answer key
 var answerKey = [
     "Hypertext Markup Language" , 
     "Styling", 
-    "Gigi"
+    "Gigi" , 
+    "Minecraft"
 ];
 
 //array of selection
@@ -86,7 +93,13 @@ var selections = [
    {a: "Spike" , 
     b:  "Gigi" , 
     c: "Kyrie" ,
-    d: "Billy" }
+    d: "Billy" },
+
+    {a: 'CSS' ,
+    b: 'React' ,
+    c: 'Ruby' , 
+    d: 'Minecraft'
+    }
 ]
 
 
@@ -119,7 +132,8 @@ function createQuiz(){
 
 //switches to next question
 function next() {
-    //assigns the content to the slections
+
+    //assigns the content to the selections
     if (a.checked) {
         user_answer = a_content.textContent;
     } else if (b.checked) {
@@ -133,7 +147,7 @@ function next() {
     //alerts if its correct or incorrect and takes away 10 second for incorrect answer
     if(answerKey.includes(user_answer)) {
         alert('correct');
-        correct_counter ++;
+        score ++;
     }
     if(!answerKey.includes(user_answer)) {
         alert('incorrect, you lost 10 seconds');
@@ -141,16 +155,18 @@ function next() {
     }
 
 
+    //checks if we are at the end of the game; return stop() if it is
     ques.innerHTML = questions[counter];
     if (counter == questions.length){
-        console.log('ji');
         total_time = 0;
+        nextBtn.remove();
         return stop();
     } else {
     quizContent();
 }
 }
-
+    
+    // function assaigns new values so that the user can move on to the next question
     function quizContent() {
     a_content.innerHTML =  selections[counter].a;
     b_content.innerHTML = selections[counter].b;
@@ -182,14 +198,35 @@ function next() {
 }
 
 
+// the things that occur at the end of the game
 function stop(){
-    console.log('stop');
     ques.remove();
+    var user;
+    let text;
+
+    //ask user for name input to store score
+    user = prompt('You have finished the quiz! Please enter your initials:' , 'Dv');
+    if (user == null || user =='') {
+        text = "Please input your name."
+    } else {
+    alert("Thank you " + user);
+    const saved_values = {
+        name: user,
+        score: score
+    };
+    user_list.push(saved_values);
+    console.log(user_list);
+    localStorage.setItem('user', JSON.stringify(user_list));
+    }
+
+
+
 }
 
-// funtion inputScore (){
-
+// function scoreboard() {
+//     localStorage.
 // }
+
 
 
 // this is a timer that counts down from total time and formats it like "00:00" 
@@ -218,7 +255,6 @@ function countDown(){
         } else if (total_time == 0) {
             clearInterval(clock);
             timer.innerHTML = "00:00";
-            alert("The quiz is over!");
         }
     }, 1000)
     ;
