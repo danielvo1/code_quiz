@@ -64,7 +64,8 @@ var questions = [
     "What does HTML stand for?", 
     "What is CSS mainly used for?",
     "What is my dog's name?" ,
-    "which one of these is NOT a coding language?"
+    "Which one of these is NOT a coding language?" , 
+    "What does CSS stand for?"
 ];
 
 //answer key
@@ -72,7 +73,8 @@ var answerKey = [
     "Hypertext Markup Language" , 
     "Styling", 
     "Gigi" , 
-    "Minecraft"
+    "Minecraft" , 
+    "Cascading Style Sheet"
 ];
 
 //array of selection
@@ -96,6 +98,13 @@ var selections = [
     b: 'React' ,
     c: 'Ruby' , 
     d: 'Minecraft'
+    } ,
+
+    {a:"Computing Style Sheet",
+    b:"Computer Stlye Sheet",
+    c:"Cascading Style Sheet", 
+    d:"Computer Styling Systems"
+
     }
 ]
 
