@@ -3,6 +3,7 @@
 var start_button = document.querySelector("#start");
 var timer = document.querySelector("#timer");
 var nextBtn = document.createElement('button');
+var resetBtn = document.querySelector("#reset");
 var br4 = document.createElement('br');
 var br1 = document.createElement('br');
 var br2 = document.createElement('br');
@@ -18,7 +19,6 @@ var a = document.createElement('input');
 a.setAttribute('type', 'radio');
 a.setAttribute('id', 'a');
 a.setAttribute('name', 'select');
-a.style.background = 'white';
 var a_content = document.createElement('label');
 a_content.setAttribute('for', 'a');
 
@@ -54,6 +54,8 @@ var counter = 0;
 var sec;
 var min;
 var score = 0;
+
+
 
 
 
@@ -104,6 +106,7 @@ function startQuiz() {
     createBtn();
     createQuiz();
     instructions.remove();
+
 }
 
 //creates the button that allows test taker to submit their answer
@@ -181,7 +184,6 @@ function next() {
     document.querySelector('#question').appendChild(br4);
     document.querySelector('#question').appendChild(d);
     document.querySelector('#question').appendChild(d_content);
-    
 
 
     counter++;
@@ -259,8 +261,13 @@ function countDown(){
     }, 1000)
     ;
 }
-;
+
+
+function resetScore() {
+    window.localStorage.clear();
+}
 
 
 start_button.addEventListener('click', startQuiz);
 nextBtn.addEventListener('click', next);
+resetBtn.addEventListener('click', resetScore);

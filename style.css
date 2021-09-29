@@ -38,6 +38,7 @@ p {
 
 #start {
   background-color: red;
+  width: 25%;
   border: none;
   color: white;
   padding: 15px 30px;
